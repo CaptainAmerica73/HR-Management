@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Employee Profile{% endblock title %}
+{% block content %}
+<div class="flex flex-col min-h-[100dvh] bg-slate-300">
+    <div style="background: url({% static "images/profile_banner.png" %}) no-repeat center;background-size:cover;" class="relative h-[35dvh] before:content-[''] before:bg-[rgba(0,0,0,.4)] before:absolute before:inset-0"></div>
+    <div class="relative flex min-h-[65dvh] justify-evenly items-start">
+    <div class="absolute flex flex-col gap-[1rem] -top-[7rem] left-[5rem]">
+        <img src={% if employee.image %}"{{employee.image.url}}"{% else %}{% if employee.get_gender_display == "Male" %}"{% static "images/avatar_male.png" %}"{% else %}"{% static "images/avatar_female.png" %}"{% endif %}{% endif %} alt="{{employee.user.username}}" class="size-[15rem] rounded-[100rem]">
+        <div class="text-lg opacity-60 font-semibold">EMPLOYEE DETAILS</div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Name</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.user.username }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Gender</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.get_gender_display }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Contact</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.contact }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Position</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.job_title }}</div>
+        </div>
+    </div>
+    <div class="w-[16rem] flex flex-col gap-[1rem] mt-[5rem]">
+        <div class="text-lg opacity-60 font-semibold">ROLE</div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Role</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.get_designation_display }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Department</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.department }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Experience</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.years_of_working }}</div>
+        </div>
+        <div class="flex flex-col bg-slate-200 p-[.3rem] mx-[.4rem] rounded-md">
+            <div class="text-sm opacity-60">Date Joined</div>
+            <div class="text-lg capitalize font-semibold">{{ employee.hire_date|date:"F j, Y" }}</div>
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      updatePerformanceChart({{ employee.user.id }});
+      updateAttendanceChart({{ employee.user.id }});
+    });
+  </script>
+{% endblock content %}

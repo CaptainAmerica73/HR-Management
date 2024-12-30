@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Employees{% endblock title %}
+{% block content %}
+<div class="min-h-[70dvh] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[3rem] p-[3rem]">
+    {% for item in employees %}
+    <div 
+        onclick="window.location.href ='/employees/{{ item.user.username }}'"
+        class="flex flex-col gap-2 items-center p-[1rem] h-[20rem] border-2 border-black transition-all hover:scale-[1.01] hover:shadow-2xl overflow-hidden">
+        <div class="w-[25ch] text-ellipsis text-center whitespace-nowrap text-2xl font-semibold capitalize overflow-hidden">{{ item.user.username }}</div>
+        <img src={% if item.get_gender_display == "Male" %}
+        "{% static "images/avatar_male.png" %}"
+        {% else %}
+        "{% static "images/avatar_female.png" %}"
+        {% endif %} alt="{{ item.name }}" class="w-1/2 h-1/2">
+        <div class="py-[.5rem] w-[5rem] rounded-xl capitalize text-ellipsis text-center text-white whitespace-nowrap overflow-hidden {% if item.get_gender_display == 'Male' %}bg-blue-600{% else %}bg-pink-600{% endif %}">{{ item.get_gender_display }}</div>
+        <div class="w-[25ch] text-ellipsis text-center whitespace-nowrap overflow-hidden">Role: {{ item.job_title }}</div>
+        <div class="w-[29ch] text-ellipsis text-center whitespace-nowrap overflow-hidden">Department: {{ item.department }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
